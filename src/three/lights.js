@@ -24,7 +24,7 @@ export class Lights {
         }
         
         // add Ambient Light
-        scene.add(new THREE.AmbientLight(0x555555));
+        scene.add(new THREE.AmbientLight(0x999999));
 
         // let orangeLight = new THREE.PointLight(0xbb6600,25,80,1.7);
         // orangeLight.position.set(5,-30,50);

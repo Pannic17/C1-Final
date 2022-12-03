@@ -9,14 +9,14 @@ export function setupThree (unit) {
     const renderer = new THREE.WebGLRenderer({
         antialias: true
     });
-    const camera = new THREE.PerspectiveCamera(90, 16 / 9, 1, unit/2);
-    camera.position.set(0, 1, 0)
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1);
+    camera.position.z = 5;
     // console.log(camera)
     // @ts-ignore
     const control = new OrbitControls(camera, canvas);
     control.enableDamping = true;
     control.rotateSpeed = 0.2;
-    renderer.setSize(window.innerWidth*.96, window.innerWidth*.54);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     // @ts-ignore
     let child = canvas.lastElementChild;
     while (child) {
