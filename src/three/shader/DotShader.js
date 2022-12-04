@@ -8,7 +8,7 @@ import {
  * https://github.com/evanw/glfx.js
  */
 
-const DotScreenShader = {
+const DotShader = {
 
     uniforms: {
 
@@ -61,24 +61,26 @@ const DotScreenShader = {
 
 			float average = ( color.r + color.g + color.b ) / 3.0;
 			
-			float fr, fg, fb;
+			float fr, fg, fb, fa;
 			
 			if (pattern() == 0.0) {
 			    fr = (color.r) + 0.2;
 			    fg = (color.g) + 0.2;
 			    fb = (color.b) + 0.2;
+			    fa = color.a;
 			} else {
 			    fr = 0.0;
 			    fg = 0.0;
 			    fb = 0.0;
+			    fa = 0.0;
 			}
 			
 			
 
-			gl_FragColor = vec4( vec3( fr, fg, fb ), color.a );
+			gl_FragColor = vec4( vec3( fr, fg, fb ), fa );
 
 		}`
 
 };
 
-export { DotScreenShader };
+export { DotShader };

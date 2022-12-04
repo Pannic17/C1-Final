@@ -7,10 +7,12 @@ export function setupThree (unit) {
 
     const scene = new THREE.Scene();
     const renderer = new THREE.WebGLRenderer({
-        antialias: true
+        antialias: true,
+        alpha: true
     });
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1);
     camera.position.z = 5;
+    camera.position.y = .5;
     // console.log(camera)
     // @ts-ignore
     const control = new OrbitControls(camera, canvas);
