@@ -28,6 +28,7 @@ import {PaintShader} from "./three/shader/PaintShader";
 import {WaterShader} from "./three/shader/WaterShader";
 import {HalftoneEffect} from "./three/effect/p/HalftoneEffect";
 import {PostEffect} from "./three/effect/p/PostEffect";
+import {PixelEffect} from "./three/effect/p/PixelEffect";
 
 let scene, camera, renderer, gui;
 let control, composer, clock, light;
@@ -60,6 +61,7 @@ function initialize() {
   const effectLine = new LineEffect(composer, 100, innerWidth, innerHeight)
   const effectHalftone = new HalftoneEffect(composer, 100, innerWidth, innerHeight, Math.random()*6+6)
   const effectPost = new PostEffect(composer, 100, 20);
+  const effectPixel = new PixelEffect(composer, 50, scene, camera, 50)
 
   const effectTest1 = new ShaderPass( WaterShader );
   const effectTest2 = new ShaderPass( PaintShader );
@@ -82,7 +84,7 @@ function initialize() {
   document.onkeypress = function (e) {
     if (e.keyCode == 119) {
       console.log("PRESS w");
-      initEffect(effectPost);
+      initEffect(effectPixel);
     }
     if (e.keyCode == 115) {
       console.log("PRESS a");
