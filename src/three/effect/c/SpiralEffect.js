@@ -7,10 +7,10 @@ export class SpiralEffect {
         this.composer = composer;
         this.max = max;
 
-        const effectSpiral = new ShaderPass( SpiralShader );
-        effectSpiral.uniforms[ 'width' ].value = width;
-        effectSpiral.uniforms[ 'height' ].value = height;
-        this.pass = effectSpiral;
+        const spiralPass = new ShaderPass( SpiralShader );
+        spiralPass.uniforms[ 'width' ].value = width;
+        spiralPass.uniforms[ 'height' ].value = height;
+        this.pass = spiralPass;
     }
 
     add() {

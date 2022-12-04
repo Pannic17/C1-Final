@@ -4,10 +4,10 @@ import {fade} from "../../utils";
 
 export class LineEffect {
     time = 0;
-    constructor (composer, max, width, height, size) {
+    constructor (composer, max, width, height) {
         this.composer = composer;
         this.max = max;
-        this.size = size;
+        this.size = 15;
 
         const effectLine = new ShaderPass( LineShader );
         effectLine.uniforms[ 'width' ].value = width;
@@ -15,8 +15,9 @@ export class LineEffect {
         this.pass = effectLine;
     }
 
-    add() {
+    add(size) {
         this.time = 0;
+        this.size = Math.random() * 10 + 10;
         this.composer.addPass(this.pass);
     }
 

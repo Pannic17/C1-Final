@@ -5,18 +5,19 @@ import {effect} from "vue";
 
 export class DotEffect {
     time = 0;
-    constructor (composer, max, size) {
+    constructor (composer, max) {
         this.composer = composer;
-        this.size = size;
+        this.size = 3;
         this.max = max;
-        const effectDot = new ShaderPass( DotShader );
-        effectDot.uniforms[ 'scale' ].value = size;
-        effectDot.uniforms[ 'angle' ].value = 0;
-        this.pass = effectDot;
+        const DotPass = new ShaderPass( DotShader );
+        DotPass.uniforms[ 'scale' ].value = 3;
+        DotPass.uniforms[ 'angle' ].value = 0;
+        this.pass = DotPass;
     }
 
-    add() {
+    add(size) {
         this.time = 0;
+        this.size = Math.random() * 2 + 2;
         this.composer.addPass(this.pass);
     }
 
