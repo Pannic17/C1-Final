@@ -20,6 +20,10 @@ export class PostEffect {
     }
 
     add() {
+        const audio = document.createElement('audio');
+        audio.hidden = true;
+        audio.src = './sound/sF6.wav';
+        audio.play();
         this.time = 0;
         this.size = 2 + Math.random();
         this.composer.addPass(this.p1);

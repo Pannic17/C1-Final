@@ -13,6 +13,10 @@ export class AfterEffect {
     }
 
     add() {
+        const audio = document.createElement('audio');
+        audio.hidden = true;
+        audio.src = './sound/aT1.wav';
+        audio.play();
         this.time = 0;
         this.composer.addPass(this.pass);
         this.composer.addPass(this.mask);

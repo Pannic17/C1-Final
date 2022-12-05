@@ -13,6 +13,10 @@ export class GlitchEffect {
     }
 
     add() {
+        const audio = document.createElement('audio');
+        audio.hidden = true;
+        audio.src = './sound/dF5.wav';
+        audio.play();
         this.time = 0;
         this.pass.uniforms[ 'amount' ].value = Math.random() * 0.1 + 0.2;
         this.composer.addPass(this.pass);

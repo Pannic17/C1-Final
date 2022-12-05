@@ -16,6 +16,10 @@ export class LineEffect {
     }
 
     add(size) {
+        const audio = document.createElement('audio');
+        audio.hidden = true;
+        audio.src = './sound/aS2.wav';
+        audio.play();
         this.time = 0;
         this.size = Math.random() * 10 + 10;
         this.composer.addPass(this.pass);

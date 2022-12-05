@@ -13,6 +13,10 @@ export class PixelEffect {
     }
 
     add() {
+        const audio = document.createElement('audio');
+        audio.hidden = true;
+        audio.src = './sound/cCrash.wav';
+        audio.play();
         this.time = 0;
         this.size = Math.random() * 16 + 32;
         this.composer.addPass(this.pass);

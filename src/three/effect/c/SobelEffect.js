@@ -16,6 +16,10 @@ export class SobelEffect {
     }
 
     add() {
+        const audio = document.createElement('audio');
+        audio.hidden = true;
+        audio.src = './sound/aRide.wav';
+        audio.play();
         this.time = 0;
         this.composer.addPass(this.pass);
     }

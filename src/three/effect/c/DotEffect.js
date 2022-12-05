@@ -16,6 +16,10 @@ export class DotEffect {
     }
 
     add(size) {
+        const audio = document.createElement('audio');
+        audio.hidden = true;
+        audio.src = './sound/aCrash.wav';
+        audio.play();
         this.time = 0;
         this.size = Math.random() * 2 + 2;
         this.composer.addPass(this.pass);

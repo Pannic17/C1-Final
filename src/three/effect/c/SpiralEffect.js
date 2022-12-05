@@ -14,6 +14,10 @@ export class SpiralEffect {
     }
 
     add() {
+        const audio = document.createElement('audio');
+        audio.hidden = true;
+        audio.src = './sound/aTom.wav';
+        audio.play();
         this.time = 0;
         this.composer.addPass(this.pass);
     }

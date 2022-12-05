@@ -25,12 +25,17 @@ import {PostEffect} from "./three/effect/p/PostEffect";
 import {PixelEffect} from "./three/effect/p/PixelEffect";
 import {AfterEffect} from "./three/effect/p/AfterEffect";
 import {GlitchEffect} from "./three/effect/c/GlitchEffect";
-import {DoubleSide} from "three";
+import {RingEffect} from "./three/effect/g/RingEffect";
+import {WrapEffect} from "./three/effect/g/WrapEffect";
+import {HedronEffect} from "./three/effect/g/HedronEffect";
+import {CubeEffect} from "./three/effect/g/CubeEffect";
+import {CharEffect} from "./three/effect/g/CharEffect";
+import {ChangeCall, loadModel} from "./three/effect/ChangeModel";
 
 let scene, camera, renderer, gui;
 let control, composer, clock, light;
 let model;
-
+let models = [];
 let eevee;
 
 let cylinder;
@@ -39,9 +44,13 @@ let far = 1000;
 
 let active = [];
 
-
+let bgc = [];
 
 function initialize() {
+
+  let background = document.getElementById('background');
+  console.log(background)
+
   setupThree();
   let init = setupThree(far);
   scene = init.scene;
@@ -60,6 +69,8 @@ function initialize() {
   // initEffect(effectHalftone, 6, 6);
 
   // active = addEffects(composer, renderer, scene, camera, active);
+
+  // Shader Effect
   const effectDot = new DotEffect(composer, 50);
   const effectShift = new ShiftEffect(composer, 50,0.025, 30);
   const effectNormal = new NormalEffect(composer, 50, renderer, scene, camera);
@@ -73,6 +84,15 @@ function initialize() {
   const effectPixel = new PixelEffect(composer, 50, scene, camera, 50)
   const effectAfter = new AfterEffect(composer, 100);
   const effectGlitch = new GlitchEffect(composer, 100);
+
+  // Geometry Effect
+  let color = [0x156289, 0xc9dd22, 0xed5736, 0xf2be45, 0xc0ebd7];
+  const effectRing = new RingEffect(scene, 100, color);
+  const effectWrap = new WrapEffect(scene, 150, color);
+  const effectHedron = new HedronEffect(scene, 100, color);
+  const effectCube = new CubeEffect(scene, 100, color);
+  const effectChar = new CharEffect(scene, 100, color);
+
 
   function initEffect (effect) {
     effect.end();
@@ -95,6 +115,9 @@ function initialize() {
       //r
       case 82: initEffect(effectSobel); break;
       case 114: initEffect(effectSobel); break;
+      //t
+      case 84: initEffect(effectNormal); break;
+      case 116: initEffect(effectNormal); break;
 
       //a
       case 65: initEffect(effectLine); break;
@@ -121,6 +144,30 @@ function initialize() {
       //v
       case 86: initEffect(effectPost); break;
       case 118: initEffect(effectPost); break;
+
+      //p
+      case 80: initEffect(effectRing); break;
+      case 112: initEffect(effectRing); break;
+      //o
+      case 79: initEffect(effectWrap); break;
+      case 111: initEffect(effectWrap); break;
+      //l
+      case 76: initEffect(effectHedron); break;
+      case 108: initEffect(effectHedron); break;
+      //i
+      case 73: initEffect(effectCube); break;
+      case 105: initEffect(effectCube); break;
+      //k
+      case 75: initEffect(effectChar); break;
+      case 107: initEffect(effectChar); break;
+
+      //space
+      case 32:
+        let change = new ChangeCall(scene, model, models, background, bgc);
+        model = change.change();
+        console.log(model);
+        active.push(change);
+        break;
     }
   }
 
@@ -139,19 +186,9 @@ function initialize() {
   let sphere = new THREE.Mesh (new THREE.IcosahedronGeometry (0.5, 8), new THREE.MeshBasicMaterial({color: 'cyan'}));
   sphere.position.set (1.2, 0, 1)
 
-  let ringGeometry = new THREE.CylinderGeometry(
-      1.8,
-      1.8,
-      0.2,
-      4,
-      1,
-      true,
-      0,
-      Math.PI * 2
-  )
-  const ringMaterial = new THREE.MeshPhongMaterial( { color: 0x156289, emissive: 0x072534, side: DoubleSide, flatShading: true } );
-  cylinder = new THREE.Mesh( ringGeometry, ringMaterial );
-  scene.add(cylinder);
+
+
+
 
   const loader = new GLTFLoader();
   loader.load(
@@ -161,6 +198,8 @@ function initialize() {
         eevee.position.y = -1;
         // obj.rotation.z = (90 + 180) * Math.PI / 180;'
         model = eevee;
+        models.push(eevee);
+        bgc.push('#1a1a1a');
         console.log(model);
         scene.add(model);
         animate();
@@ -168,13 +207,48 @@ function initialize() {
       function (xhr) {console.log((xhr.loaded / xhr.total * 100) + '% loaded')},
       function (error) {console.log('An error happened')}
   )
+
+  loadModel('./vaporeon.gltf', function (model) {
+    models.push(model);
+    bgc.push('#2b3c74');
+  })
+  loadModel('./charmander.gltf', function (model) {
+    models.push(model);
+    bgc.push('#2c110b');
+  })
+  loadModel('./pickachu.gltf', function (model) {
+    models.push(model);
+    bgc.push('#a78e44');
+  })
+  loadModel('./squirtle.gltf', function (model) {
+    models.push(model);
+    bgc.push('#54a296');
+  })
+  loadModel('./meowth.gltf', function (model) {
+    models.push(model);
+    bgc.push('#818fa9');
+  })
+  loadModel('./vulpix.gltf', function (model) {
+    models.push(model);
+    bgc.push('#a98175');
+  })
+  // let bgC = [
+  //     '#1a1a1a',
+  //     '#4b5cc4',
+  //     '',
+  //     '',
+  //     '#ffc773',
+  //     '',
+  //     '',
+  //     ''
+  // ]
 }
 
 function animate () {
   const time = Date.now();
-  model.position.y = Math.cos(time * 0.01)*0.1 - 1;
+  model.position.y = Math.cos(time / 100) * 0.1 - 1;
   model.rotation.z += 0.01;
-  cylinder.rotation.x += 0.01;
+  // cylinder.rotation.x += 0.01;
   for (let i = 0; i < active.length; i++) {
     active[i].animate(function () {
       active = active.filter(function (item) {

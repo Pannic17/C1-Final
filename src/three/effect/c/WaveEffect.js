@@ -13,6 +13,10 @@ export class WaveEffect {
     }
 
     add() {
+        const audio = document.createElement('audio');
+        audio.hidden = true;
+        audio.src = './sound/sPerc.wav';
+        audio.play();
         this.time = 0;
         this.composer.addPass(this.pass);
     }

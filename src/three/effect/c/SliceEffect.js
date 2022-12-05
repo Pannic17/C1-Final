@@ -18,6 +18,10 @@ export class SliceEffect {
     }
 
     add() {
+        const audio = document.createElement('audio');
+        audio.hidden = true;
+        audio.src = './sound/dClap.wav';
+        audio.play();
         this.time = 0;
         this.composer.addPass(this.pass);
     }
