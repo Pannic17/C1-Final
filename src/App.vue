@@ -25,12 +25,15 @@ import {PostEffect} from "./three/effect/p/PostEffect";
 import {PixelEffect} from "./three/effect/p/PixelEffect";
 import {AfterEffect} from "./three/effect/p/AfterEffect";
 import {GlitchEffect} from "./three/effect/c/GlitchEffect";
+import {DoubleSide} from "three";
 
 let scene, camera, renderer, gui;
 let control, composer, clock, light;
 let model;
 
 let eevee;
+
+let cylinder;
 
 let far = 1000;
 
@@ -136,6 +139,20 @@ function initialize() {
   let sphere = new THREE.Mesh (new THREE.IcosahedronGeometry (0.5, 8), new THREE.MeshBasicMaterial({color: 'cyan'}));
   sphere.position.set (1.2, 0, 1)
 
+  let ringGeometry = new THREE.CylinderGeometry(
+      1.8,
+      1.8,
+      0.2,
+      4,
+      1,
+      true,
+      0,
+      Math.PI * 2
+  )
+  const ringMaterial = new THREE.MeshPhongMaterial( { color: 0x156289, emissive: 0x072534, side: DoubleSide, flatShading: true } );
+  cylinder = new THREE.Mesh( ringGeometry, ringMaterial );
+  scene.add(cylinder);
+
   const loader = new GLTFLoader();
   loader.load(
       './eevee.gltf',
@@ -157,7 +174,7 @@ function animate () {
   const time = Date.now();
   model.position.y = Math.cos(time * 0.01)*0.1 - 1;
   model.rotation.z += 0.01;
-  // renderer.render(scene,camera);
+  cylinder.rotation.x += 0.01;
   for (let i = 0; i < active.length; i++) {
     active[i].animate(function () {
       active = active.filter(function (item) {

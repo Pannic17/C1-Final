@@ -1,9 +1,11 @@
 import {HalftonePass} from "three/examples/jsm/postprocessing/HalftonePass";
 import {fade} from "../../utils";
+import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass";
+import {MaskShader} from "../../shader/MaskShader";
 
 export class HalftoneEffect {
     time = 0;
-    constructor (composer, max, width, height, radius) {
+    constructor (composer, max, width, height) {
         this.composer = composer;
         this.max = max;
         const params = {
@@ -18,21 +20,23 @@ export class HalftoneEffect {
             greyscale: false,
             disable: false
         };
-        const halftonePass = new HalftonePass(width, height, params);
-        this.pass = halftonePass;
+        this.mask = new ShaderPass( MaskShader );
+        this.pass = new HalftonePass (width, height, params);
         this.fadeTP1 = 20;
         this.fadeTP2 = 30
     }
 
     add() {
         this.time = 0;
-        this.size = Math.random() * 6 + 6;
+        this.size = Math.random() * 10 + 15;
         this.composer.addPass(this.pass);
+        this.composer.addPass(this.mask);
         this.pass.uniforms[ 'shape' ].value = Math.round(Math.random()*3) + 1;
     }
 
     end() {
         this.composer.removePass(this.pass);
+        this.composer.removePass(this.mask);
     }
 
     animate(onEnd) {
