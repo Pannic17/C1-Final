@@ -27,7 +27,7 @@ export class HedronEffect {
         const audio = document.createElement('audio');
         audio.hidden = true;
         audio.src = './sound/aT3.wav';
-        audio.play();
+        audio.volume = 0.5; audio.play();
         let radius = Math.random() * 0.7 + 1.3;
         let geometry = this.choosePolyhedron(radius);
         let wireframe = new WireframeGeometry2(geometry);

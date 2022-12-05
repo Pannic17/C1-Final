@@ -35,7 +35,7 @@ export class NormalEffect {
         const audio = document.createElement('audio');
         audio.hidden = true;
         audio.src = './sound/aK0.wav';
-        audio.play();
+        audio.volume = 0.5; audio.play();
         this.time = 0;
         this.composer.addPass(this.pass);
         this.composer.addPass(this.water);

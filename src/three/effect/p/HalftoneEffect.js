@@ -30,7 +30,7 @@ export class HalftoneEffect {
         const audio = document.createElement('audio');
         audio.hidden = true;
         audio.src = './sound/aPerc.wav';
-        audio.play();
+        audio.volume = 0.5; audio.play();
         this.time = 0;
         this.size = Math.random() * 10 + 15;
         this.composer.addPass(this.pass);

@@ -38,12 +38,10 @@ let model;
 let models = [];
 let eevee;
 
-let cylinder;
-
 let far = 1000;
+let play = false;
 
 let active = [];
-
 let bgc = [];
 
 function initialize() {
@@ -81,7 +79,7 @@ function initialize() {
   const effectLine = new LineEffect(composer, 100, innerWidth, innerHeight)
   const effectHalftone = new HalftoneEffect(composer, 100, innerWidth, innerHeight, Math.random()*6+6)
   const effectPost = new PostEffect(composer, 50, 20);
-  const effectPixel = new PixelEffect(composer, 50, scene, camera, 50)
+  const effectPixel = new PixelEffect(composer, 100, scene, camera, 50)
   const effectAfter = new AfterEffect(composer, 100);
   const effectGlitch = new GlitchEffect(composer, 100);
 
@@ -98,6 +96,17 @@ function initialize() {
     effect.end();
     effect.add();
     active.push(effect);
+  }
+
+  let audio = document.getElementById('beats');
+  document.onclick = function (e) {
+    if (!play) {
+      audio.play();
+      play = true;
+    } else {
+      audio.pause();
+      play = false;
+    }
   }
 
   document.onkeypress = function (e) {
@@ -246,7 +255,7 @@ function initialize() {
 
 function animate () {
   const time = Date.now();
-  model.position.y = Math.cos(time / 100) * 0.1 - 1;
+  model.position.y = Math.cos(time / 120) * 0.1 - 1;
   model.rotation.z += 0.01;
   // cylinder.rotation.x += 0.01;
   for (let i = 0; i < active.length; i++) {
@@ -274,6 +283,7 @@ onMounted(() => {
 <template>
   <div id="background" style="background-color: #1a1a1a"></div>
   <div id="three-canvas"></div>
+  <audio controls="controls" id="beats" hidden src="./public/flip.mp3" loop></audio>
 </template>
 
 <style scoped>

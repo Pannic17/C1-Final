@@ -15,7 +15,7 @@ export class CubeEffect {
         const audio = document.createElement('audio');
         audio.hidden = true;
         audio.src = './sound/aRimshot.wav';
-        audio.play();
+        audio.volume = 0.5; audio.play();
         for (let i = 0; i < Math.random() * 2 + 4; i++) {
             let cube = this.newSquare(Math.random()*0.8);
             this.cubes.push(cube);

@@ -16,7 +16,7 @@ export class RingEffect {
         const audio = document.createElement('audio');
         audio.hidden = true;
         audio.src = './sound/cRide.wav';
-        audio.play();
+        audio.volume = 0.5; audio.play();
         let radius = Math.random() * 0.5 + 1.4;
         let geometry = new CylinderGeometry(
             radius,

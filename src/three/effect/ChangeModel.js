@@ -26,7 +26,7 @@ export class ChangeCall {
         const audio = document.createElement('audio');
         audio.hidden = true;
         audio.src = './sound/fFlute.wav';
-        audio.play();
+        audio.volume = 0.5; audio.play();
         this.old = this.model;
         this.new = this.select();
         this.new.position.y = -4;

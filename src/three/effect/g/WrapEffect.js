@@ -15,7 +15,7 @@ export class WrapEffect {
         const audio = document.createElement('audio');
         audio.hidden = true;
         audio.src = './sound/sF7.wav';
-        audio.play();
+        audio.volume = 0.5; audio.play();
         this.group = new Group();
         let sy = this.start;
         let radius = Math.random() * 0.7 + 1.6;

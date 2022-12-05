@@ -26,7 +26,7 @@ export class CharEffect {
         const audio = document.createElement('audio');
         audio.hidden = true;
         audio.src = './sound/hPerc.wav';
-        audio.play();
+        audio.volume = 0.5; audio.play();
         let by = 2;
         let line = Math.random() * 3 + 2;
         let step = 4 / (line+1);
