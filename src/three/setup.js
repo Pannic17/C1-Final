@@ -12,12 +12,12 @@ export function setupThree (unit) {
     });
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1);
     camera.position.z = 5;
-    camera.position.y = .5;
+    camera.position.y = 0;
     // console.log(camera)
     // @ts-ignore
-    const control = new OrbitControls(camera, canvas);
-    control.enableDamping = true;
-    control.rotateSpeed = 0.2;
+    // const control = new OrbitControls(camera, canvas);
+    // control.enableDamping = true;
+    // control.rotateSpeed = 0.2;
     renderer.setSize(window.innerWidth, window.innerHeight);
     // @ts-ignore
     let child = canvas.lastElementChild;
@@ -33,5 +33,5 @@ export function setupThree (unit) {
     scene.fog = new THREE.Fog(0x0b5394, 5, 180);
     // renderer.setClearColor(scene.fog.color);
 
-    return { scene, camera, renderer, control }
+    return { scene, camera, renderer }
 }

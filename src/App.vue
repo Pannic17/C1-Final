@@ -54,7 +54,6 @@ function initialize() {
   scene = init.scene;
   camera = init.camera;
   renderer = init.renderer;
-  control = init.control;
   gui = new GUI();
 
   composer = new EffectComposer(renderer);
@@ -99,13 +98,73 @@ function initialize() {
   }
 
   let audio = document.getElementById('beats');
-  document.onclick = function (e) {
+  document.ondblclick = function (e) {
     if (!play) {
       audio.play();
       play = true;
     } else {
       audio.pause();
       play = false;
+    }
+  }
+  document.onclick = function (e) {
+
+    let x = e.clientX;
+    let y = e.clientY;
+    let sizeX = innerWidth / 5;
+    let sizeY = innerHeight / 4;
+    console.log("x: "+x+"  y: "+y+"\n"+sizeX+","+sizeY);
+    if (0 < y && y < sizeY) {
+      if (0 < x && x < sizeX) {
+        initEffect(effectDot);
+      } else if (sizeX < x && x < sizeX * 2){
+        initEffect(effectShift);
+      } else if (sizeX * 2 < x && x < sizeX * 3){
+        initEffect(effectSlice);
+      } else if (sizeX * 3 < x && x < sizeX * 4){
+        initEffect(effectSobel);
+      } else {
+        initEffect(effectRing);
+      }
+    } else if (sizeY < y && y < sizeY * 2){
+      if (0 < x && x < sizeX) {
+        initEffect(effectLine);
+      } else if (sizeX < x && x < sizeX * 2){
+        initEffect(effectWrap);
+      } else if (sizeX * 2 < x && x < sizeX * 3){
+        initEffect(effectPixel);
+      } else if (sizeX * 3 < x && x < sizeX * 4){
+        initEffect(effectCube);
+      } else {
+        initEffect(effectAfter);
+      }
+    } else if (sizeY * 2 < y && y < sizeY * 3){
+      if (0 < x && x < sizeX) {
+        initEffect(effectWave);
+      } else if (sizeX < x && x < sizeX * 2){
+        initEffect(effectSpiral);
+      } else if (sizeX * 2 < x && x < sizeX * 3){
+        initEffect(effectChar);
+      } else if (sizeX * 3 < x && x < sizeX * 4){
+        initEffect(effectGlitch);
+      } else {
+        initEffect(effectPost);
+      }
+    } else {
+      if (0 < x && x < sizeX) {
+        initEffect(effectHedron);
+      } else if (sizeX < x && x < sizeX * 2){
+        initEffect(effectHalftone);
+      } else if (sizeX * 2 < x && x < sizeX * 3){
+        initEffect(effectNormal);
+      } else if (sizeX * 3 < x && x < sizeX * 4){
+        initEffect(effectPost);
+      } else {
+        let change = new ChangeCall(scene, model, models, background, bgc);
+        model = change.change();
+        console.log(model);
+        active.push(change);
+      }
     }
   }
 
@@ -283,7 +342,7 @@ onMounted(() => {
 <template>
   <div id="background" style="background-color: #1a1a1a"></div>
   <div id="three-canvas"></div>
-  <audio controls="controls" id="beats" hidden src="./public/flip.mp3" loop></audio>
+  <audio controls="controls" id="beats" hidden src="./flip.mp3" loop></audio>
 </template>
 
 <style scoped>
