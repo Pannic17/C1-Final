@@ -9,9 +9,9 @@ export class ShiftEffect {
         this.max = max;
         this.amount = amount;
         this.fadeTP = fadeTP;
-        const effectShift = new ShaderPass( RGBShiftShader );
-        effectShift.uniforms[ 'amount' ].value = amount;
-        this.pass = effectShift;
+        const shiftPass = new ShaderPass( RGBShiftShader );
+        shiftPass.uniforms[ 'amount' ].value = amount;
+        this.pass = shiftPass;
     }
 
     add() {

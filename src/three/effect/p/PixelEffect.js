@@ -8,8 +8,7 @@ export class PixelEffect {
         this.max = max;
         // this.size = size;
 
-        const pixelPass = new RenderPixelatedPass(32, scene, camera);
-        this.pass = pixelPass;
+        this.pass = new RenderPixelatedPass (32, scene, camera);
         this.fadeTP = fadeTP;
     }
 
