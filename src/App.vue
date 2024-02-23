@@ -90,7 +90,6 @@ function initialize() {
   const effectCube = new CubeEffect(scene, 100, color);
   const effectChar = new CharEffect(scene, 100, color);
 
-
   function initEffect (effect) {
     effect.end();
     effect.add();
@@ -254,8 +253,7 @@ function initialize() {
   let sphere = new THREE.Mesh (new THREE.IcosahedronGeometry (0.5, 8), new THREE.MeshBasicMaterial({color: 'cyan'}));
   sphere.position.set (1.2, 0, 1)
 
-
-
+  console.log(sphere.geometry.attributes)
 
 
   const loader = new GLTFLoader();
@@ -342,6 +340,11 @@ onMounted(() => {
 <template>
   <div id="background" style="background-color: #1a1a1a"></div>
   <div id="three-canvas"></div>
+  <div id="overlay">
+    <a href="https://github.com/Pannic17/C1-Final">Source Code</a><br>
+    Try Click/Tap Randomly or Press Random Keys!<br>
+    Double Click to PLAY/PAUSE Music
+  </div>
   <audio controls="controls" id="beats" hidden src="./flip.mp3" loop></audio>
 </template>
 
@@ -354,5 +357,9 @@ div{
   width: 100%;
   height: 100%;
   /*background-color: #1a1a1a;*/
+}
+#overlay{
+  position: fixed;
+  color: white;
 }
 </style>
